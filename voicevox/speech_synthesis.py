@@ -32,7 +32,7 @@ def create_sound_files_srt_files(Section_List, Keywords):
             sentence = re.sub(r"\n", "", sentence)
             sentence = re.sub(r" ", "", sentence)
             sentence = re.sub(r"　", "", sentence)
-            time = pyopenjtalk_synthesize(sentence, f"voicevox/sound/{i}_{j}.wav", speed=1.2)
+            time = pyopenjtalk_synthesize(sentence, f"/tmp/voicevox/sound/{i}_{j}.wav", speed=1.2)
             # 絶対パスで指定
             # time = voicevox(sentence, f"/Users/issei/Documents/GitHub/OneMinuteVideoMaker/webapp/voicevox/sound/{i}_{j}.wav", speed=1.2)
             end = start + time
@@ -44,13 +44,13 @@ def create_sound_files_srt_files(Section_List, Keywords):
         sentence_start = sentence_end
     
     
-    with open("voicevox/srt/output.srt", "w") as f:
+    with open("/tmp/voicevox/srt/output.srt", "w") as f:
         f.write(srt.compose(srts))
         
     # with open("/Users/issei/Documents/GitHub/OneMinuteVideoMaker/webapp/voicevox/srt/output.srt", "w") as f:
     #     f.write(srt.compose(srts))
     
-    with open("voicevox/srt/keywords.srt", "w") as f:
+    with open("/tmp/voicevox/srt/keywords.srt", "w") as f:
         f.write(srt.compose(keywords_srt))
         
     # with open("/Users/issei/Documents/GitHub/OneMinuteVideoMaker/webapp/voicevox/srt/keywords.srt", "w") as f:
@@ -88,11 +88,11 @@ def create_sound_files_srt_files(Section_List, Keywords):
 def concat_sound_file(Section_List):
 
     ## 音声を結合する
-    output = "voicevox/sound/output.wav"
+    output = "/tmp/voicevox/sound/output.wav"
     afes = []
     for i, section in enumerate(Section_List):
         for j, _ in enumerate(section):
-            afes.append(AudioSegment.from_wav(f"voicevox/sound/{i}_{j}.wav"))
+            afes.append(AudioSegment.from_wav(f"/tmp/voicevox/sound/{i}_{j}.wav"))
     output_sound = AudioSegment.empty()
 
     for afe in afes:
@@ -101,9 +101,9 @@ def concat_sound_file(Section_List):
 
 def concat_sound_and_video():
     ## 動画と音声を結合する
-    video = "voicevox/video/output.mp4"
-    sound = "voicevox/sound/output.wav"
-    output = "voicevox/result/output.mp4"
+    video = "/tmp/voicevox/video/output.mp4"
+    sound = "/tmp/voicevox/sound/output.wav"
+    output = "/tmp/voicevox/result/output.mp4"
 
     video = VideoFileClip(video)
     audio = AudioFileClip(sound)
@@ -182,7 +182,7 @@ def create_keywords_srt(start, end, index, keyword):
 
 
 def combine_video_srt():
-    video = VideoFileClip("voicevox/result/output.mp4")
+    video = VideoFileClip("/tmp/voicevox/result/output.mp4")
     video = video.resize(width=640)  # 幅を720ピクセルに設定し、高さはアスペクト比を保持
     
     # 字幕テキストを表示するためのカスタム関数
@@ -192,8 +192,8 @@ def combine_video_srt():
     generator_keywords = lambda txt: TextClip(txt, font='/System/Library/Fonts/ヒラギノ角ゴシック W4.ttc', fontsize=36, color='white', stroke_width=1, bg_color='#303030').set_opacity(0.8)
     
     # SubtitlesClipを生成
-    srt = SubtitlesClip("voicevox/srt/output.srt", make_textclip=generator)
-    keywords_srt = SubtitlesClip("voicevox/srt/keywords.srt", make_textclip=generator_keywords)
+    srt = SubtitlesClip("/tmp/voicevox/srt/output.srt", make_textclip=generator)
+    keywords_srt = SubtitlesClip("/tmp/voicevox/srt/keywords.srt", make_textclip=generator_keywords)
     
     # 動画のサイズを取得
     w, h = video.size
@@ -207,7 +207,7 @@ def combine_video_srt():
         keywords_srt.set_position((20, 20))
     ])
     
-    final_video.write_videofile("voicevox/result/output_with_srt.mp4", codec="libx264", fps=24)
+    final_video.write_videofile("/tmp/voicevox/result/output_with_srt.mp4", codec="libx264", fps=24)
 
 def concat_everything(Section_List):
     concat_sound_file(Section_List)
