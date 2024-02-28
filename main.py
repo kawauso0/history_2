@@ -1,7 +1,7 @@
 from text_processing import summarize_and_extract_prompts
 from video_creator import create_video_from_images, generate_image_with_retry
 from voicevox.speech_synthesis import create_sound_files_srt_files, concat_everything
-from voicevox.voice import voicevox
+# from voicevox.voice import voicevox
 
 def main(input_text, detail_level, language, accuracy, paint_style):
     print(input_text)

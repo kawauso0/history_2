@@ -1,4 +1,5 @@
-from voicevox.voice import voicevox, generate_adjusted_audio_from_srt, pyopenjtalk_synthesize
+# from voicevox.voice import voicevox, generate_adjusted_audio_from_srt
+from voicevox.voice import pyopenjtalk_synthesize
 from pydub import AudioSegment
 from moviepy.editor import VideoFileClip, CompositeVideoClip, TextClip, AudioFileClip
 from moviepy.video.tools.subtitles import SubtitlesClip
