@@ -1,6 +1,5 @@
 import streamlit as st
 from PIL import Image
-from main import main
 import subprocess
 import os
 
@@ -14,6 +13,8 @@ subprocess.run(["wget", whl_url])
 
 # pipを使用してダウンロードした.whlファイルをインストール
 subprocess.run(["pip", "install", whl_file])
+
+from main import main
 
 # 画像を表示
 image = Image.open("./images/tentative_logo_design.jpg")
