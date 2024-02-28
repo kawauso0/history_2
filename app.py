@@ -1,6 +1,19 @@
 import streamlit as st
 from PIL import Image
 from main import main
+import subprocess
+import os
+
+# .whlファイルのURL
+whl_url = "https://github.com/VOICEVOX/voicevox_core/releases/download/0.14.3/voicevox_core-0.14.3+cpu-cp38-abi3-linux_x86_64.whl"
+# ダウンロードする.whlファイルのファイル名
+whl_file = "voicevox_core-0.14.3+cpu-cp38-abi3-linux_x86_64.whl"
+
+# wgetを使用してファイルをダウンロード
+subprocess.run(["wget", whl_url])
+
+# pipを使用してダウンロードした.whlファイルをインストール
+subprocess.run(["pip", "install", whl_file])
 
 # 画像を表示
 image = Image.open("./images/tentative_logo_design.jpg")
