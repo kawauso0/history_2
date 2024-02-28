@@ -1,4 +1,4 @@
-from voicevox.voice import voicevox, generate_adjusted_audio_from_srt
+from voicevox.voice import voicevox, generate_adjusted_audio_from_srt, pyopenjtalk_synthesize
 from pydub import AudioSegment
 from moviepy.editor import VideoFileClip, CompositeVideoClip, TextClip, AudioFileClip
 from moviepy.video.tools.subtitles import SubtitlesClip
@@ -31,7 +31,7 @@ def create_sound_files_srt_files(Section_List, Keywords):
             sentence = re.sub(r"\n", "", sentence)
             sentence = re.sub(r" ", "", sentence)
             sentence = re.sub(r"　", "", sentence)
-            time = voicevox(sentence, f"voicevox/sound/{i}_{j}.wav", speed=1.2)
+            time = pyopenjtalk_synthesize(sentence, f"voicevox/sound/{i}_{j}.wav", speed=1.2)
             # 絶対パスで指定
             # time = voicevox(sentence, f"/Users/issei/Documents/GitHub/OneMinuteVideoMaker/webapp/voicevox/sound/{i}_{j}.wav", speed=1.2)
             end = start + time

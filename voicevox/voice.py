@@ -3,6 +3,9 @@ from voicevox_core import AccelerationMode, VoicevoxCore
 import pysrt
 from pydub import AudioSegment
 import wave
+import pyopenjtalk
+from scipy.io import wavfile
+import numpy as np
 
 SPEAKER_ID = 3
 
@@ -26,6 +29,14 @@ def voicevox(text, path, speed=1.0):
     # playsound(path)
     with wave.open(path, mode='rb') as wf:
         time = float(wf.getnframes() / wf.getframerate())
+    return time
+
+def pyopenjtalk_synthesize(text, path, speed=1.0):
+    # 音声合成を実行
+    x, sr = pyopenjtalk.tts(text)
+    wavfile.write(path, sr, x.astype(np.int16))
+    # 再生時間を計算
+    time = len(x) / sr
     return time
 
 def generate_adjusted_audio_from_srt(srt_file_path, output_path):
