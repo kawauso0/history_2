@@ -99,8 +99,6 @@ pyarrow==14.0.2
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
-pydantic==1.10.14
-pydantic_core==2.16.2
 pydeck==0.8.0b4
 pydub==0.25.1
 Pygments==2.17.2
@@ -145,7 +143,6 @@ tzlocal==3.0
 urllib3==1.26.18
 uvicorn==0.27.1
 validators==0.22.0
-
 watchdog==2.1.6
 wcwidth==0.2.13
 websockets==11.0.3
